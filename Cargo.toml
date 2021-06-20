@@ -2,7 +2,10 @@
 name = "quantrust"
 version = "0.1.0"
 edition = "2018"
+authors = ["Rodolfo Ruiz<rpruiz@pm.me>"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+num-complex = "0.4.0"
+float-cmp = "0.8.0"
