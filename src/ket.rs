@@ -111,3 +111,18 @@ fn mul_one_with_ket_zero() {
 fn mul_one_with_ket_one() {
     assert!(KET_ONE * COMPLEX_ONE == KET_ONE);
 }
+
+// Arithmetic tests
+#[test]
+fn ket_arithmetic() {
+    let a = Complex64::from(0.6) * KET_ZERO;
+    let b = Complex64::from(0.8) * KET_ONE;
+    let c = a + b;
+
+    assert!(
+        c == Ket {
+            first: Complex64::from(0.6),
+            second: Complex64::from(0.8),
+        }
+    )
+}
