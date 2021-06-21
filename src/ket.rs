@@ -1,6 +1,7 @@
 use float_cmp::approx_eq;
 use num_complex::Complex64;
 use std::ops::Add;
+use std::ops::Mul;
 
 #[derive(Debug, Copy, Clone)]
 pub struct Ket {
@@ -26,6 +27,28 @@ impl Add for Ket {
         Self {
             first: self.first + other.first,
             second: self.second + other.second,
+        }
+    }
+}
+
+impl Mul<Complex64> for Ket {
+    type Output = Ket;
+
+    fn mul(self, rhs: Complex64) -> Ket {
+        Ket {
+            first: self.first * rhs,
+            second: self.second * rhs,
+        }
+    }
+}
+
+impl Mul<Ket> for Complex64 {
+    type Output = Ket;
+
+    fn mul(self, rhs: Ket) -> Ket {
+        Ket {
+            first: self * rhs.first,
+            second: self * rhs.second,
         }
     }
 }
@@ -67,4 +90,24 @@ fn ket_zero_add_ket_one() {
             second: COMPLEX_ONE,
         },
     )
+}
+
+#[test]
+fn mul_ket_zero_with_one() {
+    assert!(KET_ZERO == KET_ZERO * COMPLEX_ONE);
+}
+
+#[test]
+fn mul_ket_one_with_one() {
+    assert!(KET_ONE == KET_ONE * COMPLEX_ONE);
+}
+
+#[test]
+fn mul_one_with_ket_zero() {
+    assert!(KET_ZERO * COMPLEX_ONE == KET_ZERO);
+}
+
+#[test]
+fn mul_one_with_ket_one() {
+    assert!(KET_ONE * COMPLEX_ONE == KET_ONE);
 }
